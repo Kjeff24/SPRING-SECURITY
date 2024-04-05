@@ -1,4 +1,4 @@
-package com.bexos.security.config;
+package com.bexos.security.jwt_authentication;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtServiceImpl implements JwtInterface{
     private static final String SECRET_KEY = "hVax04fNbyDTGu6Kp+wG7JUFdrTAXgtQVJNtK7yD8zCmL9Wu6X+Lp/o/OgkFf8Zi";
 
     // Extracts username from a JWT token
