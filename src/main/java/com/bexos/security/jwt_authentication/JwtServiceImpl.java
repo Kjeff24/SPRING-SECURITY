@@ -41,7 +41,8 @@ public class JwtServiceImpl implements JwtInterface{
 
     // Generates a JWT token with only user details
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        Map<String, Object> claims = new HashMap<>();
+        return generateToken(claims, userDetails);
     }
 
     // Generates a JWT token with additional claims and user details

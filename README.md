@@ -7,3 +7,4 @@
 4. Testing the JWT security
 
 
+![JWT Architecture.jpg](src%2Fmain%2Fresources%2Fstatic%2FJWT%20Architecture.jpg)

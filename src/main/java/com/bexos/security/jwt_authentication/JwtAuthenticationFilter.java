@@ -31,26 +31,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // Get JWT token from the header Authorization
         final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String userEmail;
+
+        // Variables to store the JWT token and UserEmail extracted from the token.
+        String token = null;
+        String userEmail = null;
         // Check JWT token is not null and begins with Bearer
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
+            token = authHeader.substring(7);
+            // Extract the userEmail from JWT token;
+            userEmail = jwtService.extractUsername(token);
         }
-        assert authHeader != null;
-        jwt = authHeader.substring(7);
-
-        // Extract the userEmail from JWT token;
-        userEmail = jwtService.extractUsername(jwt);
-
         // Check if user is not authenticated
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             // Get user details from database
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
             // Check if token is valid and update security context holder
-            if(jwtService.isTokenValid(jwt, userDetails)) {
+            if(jwtService.isTokenValid(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
