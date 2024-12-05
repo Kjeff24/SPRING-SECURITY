@@ -3,7 +3,7 @@ package com.bexos.security.controllers;
 import com.bexos.security.requests.AuthRequest;
 import com.bexos.security.requests.RegisterRequest;
 import com.bexos.security.responses.AuthenticationResponse;
-import com.bexos.security.services.AuthServiceImpl;
+import com.bexos.security.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthServiceImpl authServiceImpl;
+    private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
-    ){
-        return ResponseEntity.ok(authServiceImpl.register(request));
+    ) {
+        return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody AuthRequest request
-    ){
-        return ResponseEntity.ok(authServiceImpl.authenticate(request));
+    ) {
+        return ResponseEntity.ok(authService.authenticate(request));
     }
 }
